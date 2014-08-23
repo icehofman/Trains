@@ -42,6 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Map\City.cs" />
+    <Compile Include="Map\ICity.cs" />
+    <Compile Include="Map\IRailroad.cs" />
+    <Compile Include="Map\IRailroadMap.cs" />
+    <Compile Include="Map\Railroad.cs" />
+    <Compile Include="Map\RailroadMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
