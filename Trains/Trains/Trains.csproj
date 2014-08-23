@@ -57,6 +57,12 @@
     <Compile Include="Plan\ShortestLengthFinder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Specify\AndSpecification.cs" />
+    <Compile Include="Specify\DistanceSpecification.cs" />
+    <Compile Include="Specify\IRouteSpecification.cs" />
+    <Compile Include="Specify\OriginAndDestinationSpecification.cs" />
+    <Compile Include="Specify\PathSpecification.cs" />
+    <Compile Include="Specify\StopsCountSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
