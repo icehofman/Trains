@@ -5,3 +5,5 @@ Trains/Trains.FunctionalTest/obj/
 Trains/Trains.FunctionalTest/bin/
 *.user
 Trains/packages/
+Trains/Trains.Test/bin/
+Trains/Trains.Test/obj/

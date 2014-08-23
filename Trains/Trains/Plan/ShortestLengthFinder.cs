@@ -114,7 +114,7 @@ namespace Trains.Plan
         /// <summary>
         /// Contains the data belonging to a row in a city
         /// </summary>
-        internal class CityRow
+        public class CityRow
         {
             /// <summary>
             /// The data about the neighbors to this city
