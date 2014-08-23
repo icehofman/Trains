@@ -7,3 +7,5 @@ Trains/Trains.FunctionalTest/bin/
 Trains/packages/
 Trains/Trains.Test/bin/
 Trains/Trains.Test/obj/
+Trains/Trains.IntegrationTest/obj/
+Trains/Trains.IntegrationTest/bin/

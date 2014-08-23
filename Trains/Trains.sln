@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CF49B5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Test", "Trains.Test\Trains.Test.csproj", "{428E36DE-D0F4-4FC8-B5FC-41515F580114}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.IntegrationTest", "Trains.IntegrationTest\Trains.IntegrationTest.csproj", "{5A76B74D-8F11-46BE-BCEF-7404443CDFD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{428E36DE-D0F4-4FC8-B5FC-41515F580114}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{428E36DE-D0F4-4FC8-B5FC-41515F580114}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{428E36DE-D0F4-4FC8-B5FC-41515F580114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A76B74D-8F11-46BE-BCEF-7404443CDFD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A76B74D-8F11-46BE-BCEF-7404443CDFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A76B74D-8F11-46BE-BCEF-7404443CDFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A76B74D-8F11-46BE-BCEF-7404443CDFD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
