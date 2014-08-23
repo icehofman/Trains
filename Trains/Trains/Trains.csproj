@@ -48,6 +48,13 @@
     <Compile Include="Map\IRailroadMap.cs" />
     <Compile Include="Map\Railroad.cs" />
     <Compile Include="Map\RailroadMap.cs" />
+    <Compile Include="Plan\IRoute.cs" />
+    <Compile Include="Plan\IRouteComparer.cs" />
+    <Compile Include="Plan\IRouteComparison.cs" />
+    <Compile Include="Plan\IRouteFinder.cs" />
+    <Compile Include="Plan\Route.cs" />
+    <Compile Include="Plan\RouteFinder.cs" />
+    <Compile Include="Plan\ShortestLengthFinder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
