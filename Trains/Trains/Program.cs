@@ -10,7 +10,7 @@ using Trains.Specify;
 
 namespace Trains
 {
-    class Program
+    public class Program
     {
         /// <summary>
         /// The format for the console messages.
