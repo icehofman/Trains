@@ -39,7 +39,7 @@ Output #10: 7
  ==========
 ```
 
-Test Result:
+Test Result
 --------------
 ```command
 #1 Graph:AB1 BC1 SpecifiedRoute:AB1 BC1 Valid Route:True
