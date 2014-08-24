@@ -100,10 +100,7 @@ namespace Trains
         public static IEnumerable<int> RunCompoundSpecificationCountRoutesUseCase(IRouteFinder routeFinder)
         {
             var anotherTripCountSpecs = new List<IRouteSpecification>();
-            anotherTripCountSpecs.Add(
-                new AndSpecification(
-                    new OriginAndDestinationSpecification("C", "C"),
-                    new DistanceSpecification(0, 29)));
+            anotherTripCountSpecs.Add( new AndSpecification( new OriginAndDestinationSpecification("C", "C"), new DistanceSpecification(0, 29)));
             return FindConformingRouteCount(routeFinder, anotherTripCountSpecs);
         }
 
@@ -132,14 +129,8 @@ namespace Trains
         public static IEnumerable<int> RunRouteCountUseCases(IRouteFinder routeFinder)
         {
             var tripCountSpecs = new List<IRouteSpecification>();
-            tripCountSpecs.Add(
-                new AndSpecification(
-                    new OriginAndDestinationSpecification("C", "C"),
-                    new StopsCountSpecification(0, 3)));
-            tripCountSpecs.Add(
-                new AndSpecification(
-                    new OriginAndDestinationSpecification("A", "C"),
-                    new StopsCountSpecification(4, 4)));
+            tripCountSpecs.Add( new AndSpecification( new OriginAndDestinationSpecification("C", "C"), new StopsCountSpecification(0, 3)));
+            tripCountSpecs.Add( new AndSpecification( new OriginAndDestinationSpecification("A", "C"), new StopsCountSpecification(4, 4)));
             return FindConformingRouteCount(routeFinder, tripCountSpecs);
         }
 
