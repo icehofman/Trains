@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Trains.Map;
 using Trains.Specify;
 
@@ -92,9 +89,7 @@ namespace Trains.Plan
                 {
                     yield return route;
                 }
-
-                // Even if a rounte already satisfies a condition, we must keep on looking for more,
-                // unil no more routes could possibly satisfy.
+               
                 ICity currentDestination = route.Destination;
                 foreach (IRailroad nextRailroad in currentDestination.Outgoing)
                 {

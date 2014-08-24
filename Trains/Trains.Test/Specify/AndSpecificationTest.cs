@@ -1,10 +1,5 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Trains.Plan;
 using Trains.Specify;
 
@@ -16,14 +11,7 @@ namespace Trains.Test.Specify
         /// <summary>
         /// Specification data used to validate the and specification
         /// </summary>
-        private static object[] specificationData = 
-        {
-            // Predicate1, Predicate 2, Expected Result
-            new bool[] { true, true, true },
-            new bool[] { true, false, false },
-            new bool[] { false, true, false },
-            new bool[] { false, false, false }
-        };
+        private static object[] specificationData =  { new bool[] { true, true, true }, new bool[] { true, false, false }, new bool[] { false, true, false }, new bool[] { false, false, false } };
 
         /// <summary>
         /// Tests if it connects two specifications correctly
@@ -35,7 +23,6 @@ namespace Trains.Test.Specify
         [TestCaseSource("specificationData")]
         public void TestIfItConnectsTwoSpecificationsCorrectly(bool predicate1Validates, bool predicate2Validates, bool expectedResult)
         {
-            // Arrange
             var predicate1 = Substitute.For<IRouteSpecification>();
             var predicate2 = Substitute.For<IRouteSpecification>();
             predicate1.IsSatisfiedBy(Arg.Any<IRoute>()).Returns(predicate1Validates);
@@ -46,11 +33,9 @@ namespace Trains.Test.Specify
             bool satisfiedBy = false;
             bool mightBeSatisfiedBy = false;
 
-            // Act
             satisfiedBy = andSpecification.IsSatisfiedBy(Substitute.For<IRoute>());
             mightBeSatisfiedBy = andSpecification.MightBeSatisfiedBy(Substitute.For<IRoute>());
 
-            // Assert
             Assert.AreEqual(expectedResult, satisfiedBy);
             Assert.AreEqual(expectedResult, mightBeSatisfiedBy);
             predicate1.ReceivedWithAnyArgs().IsSatisfiedBy(null);

@@ -1,15 +1,11 @@
 ﻿using NSubstitute;
+using NSubstitute.Exceptions;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Trains.Map;
 using Trains.Plan;
 using Trains.Specify;
 using Trains.Test;
-using NSubstitute.Exceptions;
 
 namespace Trains.IntegrationTest
 {
@@ -27,41 +23,48 @@ namespace Trains.IntegrationTest
         /// <param name="callSatisfiedBy">if set to <c>true</c> [SatisfiedBy] will be used.</param>
         /// <param name="expectedResult">if set to <c>true</c> [expected result].</param>
         [Test]
-        [TestCase(new string[] { "AB1" }, 1, 1, "A", "B", true, true)] // IsSatisfied: Valid
-        [TestCase(new string[] { "AB2" }, 1, 2, "A", "B", true, true)] // IsSatisfied: Valid
-        [TestCase(new string[] { "AB1", "BC1" }, 1, 2, "A", "C", true, true)] // IsSatisfied: Valid
-        [TestCase(new string[] { "AB2", "BC1" }, 1, 3, "A", "C", true, true)] // IsSatisfied: Valid
-        [TestCase(new string[] { "AB1", "BC1", "CD1" }, 1, 3, "A", "D", true, true)] // IsSatisfied: Valid
-        [TestCase(new string[] { "AB1" }, 1, 1, "A", "C", true, false)] // IsSatisfied: Invalid
-        [TestCase(new string[] { "AB1" }, 1, 1, "B", "B", true, false)] // IsSatisfied: Invalid
-        [TestCase(new string[] { "AB2" }, 1, 1, "A", "B", true, false)] // IsSatisfied: Invalid
-        [TestCase(new string[] { "AB1", "BC1" }, 1, 1, "A", "B", true, false)] // IsSatisfied: Invalid
-        [TestCase(new string[] { "AB1", "BC1" }, 1, 2, "A", "B", true, false)] // IsSatisfied: Invalid
-        [TestCase(new string[] { "AB1", "BC2" }, 1, 2, "A", "C", true, false)] // IsSatisfied: Invalid
-        [TestCase(new string[] { "AB1", "BC2" }, 4, 7, "A", "C", true, false)] // IsSatisfied: Invalid
-        [TestCase(new string[] { "AB1" }, 1, 1, "A", "C", false, true)] // MightBeSatisfied: Valid
-        [TestCase(new string[] { "AB1", "BC1" }, 1, 3, "A", "C", false, true)] // MightBeSatisfied: Valid
-        [TestCase(new string[] { "AB1", "BD1" }, 1, 2, "A", "C", false, true)] // MightBeSatisfied: Valid
-        [TestCase(new string[] { "AB1", "BC1" }, 1, 3, "A", "D", false, true)] // MightBeSatisfied: Valid
-        [TestCase(new string[] { "AB2" }, 1, 1, "A", "B", false, false)] // MIghtBeSatisfied: Invalid
-        [TestCase(new string[] { "CB1" }, 1, 2, "A", "B", false, false)] // MIghtBeSatisfied: Invalid
-        [TestCase(new string[] { "AB1", "BC1" }, 1, 1, "A", "B", false, false)] // MIghtBeSatisfied: Invalid
-        public void TestIfAndSpecDistanceSpecAndOriginSpecCanSpecifyARoute(
-            string[] actualRoutePath,
-            int specifiedMinDistance,
-            int specifiedMaxDistance,
-            string specifiedOrigin,
-            string specifiedDestination,
-            bool callSatisfiedBy,
-            bool expectedResult)
+        [TestCase(new string[] { "AB1" }, 1, 1, "A", "B", true, true)]
+
+        [TestCase(new string[] { "AB2" }, 1, 2, "A", "B", true, true)]
+
+        [TestCase(new string[] { "AB1", "BC1" }, 1, 2, "A", "C", true, true)]
+
+        [TestCase(new string[] { "AB2", "BC1" }, 1, 3, "A", "C", true, true)]
+
+        [TestCase(new string[] { "AB1", "BC1", "CD1" }, 1, 3, "A", "D", true, true)]
+
+        [TestCase(new string[] { "AB1" }, 1, 1, "A", "C", true, false)]
+
+        [TestCase(new string[] { "AB1" }, 1, 1, "B", "B", true, false)]
+
+        [TestCase(new string[] { "AB2" }, 1, 1, "A", "B", true, false)]
+
+        [TestCase(new string[] { "AB1", "BC1" }, 1, 1, "A", "B", true, false)]
+
+        [TestCase(new string[] { "AB1", "BC1" }, 1, 2, "A", "B", true, false)]
+
+        [TestCase(new string[] { "AB1", "BC2" }, 1, 2, "A", "C", true, false)]
+
+        [TestCase(new string[] { "AB1", "BC2" }, 4, 7, "A", "C", true, false)]
+
+        [TestCase(new string[] { "AB1" }, 1, 1, "A", "C", false, true)]
+
+        [TestCase(new string[] { "AB1", "BC1" }, 1, 3, "A", "C", false, true)]
+
+        [TestCase(new string[] { "AB1", "BD1" }, 1, 2, "A", "C", false, true)]
+
+        [TestCase(new string[] { "AB1", "BC1" }, 1, 3, "A", "D", false, true)]
+
+        [TestCase(new string[] { "AB2" }, 1, 1, "A", "B", false, false)]
+
+        [TestCase(new string[] { "CB1" }, 1, 2, "A", "B", false, false)]
+
+        [TestCase(new string[] { "AB1", "BC1" }, 1, 1, "A", "B", false, false)]
+        public void TestIfAndSpecDistanceSpecAndOriginSpecCanSpecifyARoute( string[] actualRoutePath, int specifiedMinDistance, int specifiedMaxDistance, string specifiedOrigin, string specifiedDestination, bool callSatisfiedBy, bool expectedResult)
         {
-            // Arrange
-            IRouteSpecification originAndDestinationSpec =
-                Substitute.For<OriginAndDestinationSpecification>(specifiedOrigin, specifiedDestination);
-            IRouteSpecification distanceSpec =
-                Substitute.For<DistanceSpecification>(specifiedMinDistance, specifiedMaxDistance);
-            IRouteSpecification andSpec =
-                Substitute.For<AndSpecification>(originAndDestinationSpec, distanceSpec);
+            IRouteSpecification originAndDestinationSpec = Substitute.For<OriginAndDestinationSpecification>(specifiedOrigin, specifiedDestination);
+            IRouteSpecification distanceSpec = Substitute.For<DistanceSpecification>(specifiedMinDistance, specifiedMaxDistance);
+            IRouteSpecification andSpec = Substitute.For<AndSpecification>(originAndDestinationSpec, distanceSpec);
             IRoute route = Substitute.For<Route>();
             IList<IRailroad> legs = TestHelper.GenerateLegs(actualRoutePath);
             foreach (IRailroad leg in legs)
@@ -71,7 +74,6 @@ namespace Trains.IntegrationTest
 
             bool actualResult = true;
 
-            // Act
             if (callSatisfiedBy)
             {
                 actualResult = GetSatisfyResult(originAndDestinationSpec, distanceSpec, andSpec, route);
@@ -81,7 +83,6 @@ namespace Trains.IntegrationTest
                 actualResult = actualResult && GetMightSatisfyResult(originAndDestinationSpec, distanceSpec, andSpec, route);
             }
 
-            // Assert
             Assert.AreEqual(expectedResult, actualResult);
         }
 
@@ -93,42 +94,29 @@ namespace Trains.IntegrationTest
         /// <param name="badOrigin">if set to <c>true</c> [bad origin].</param>
         /// <param name="badDistance">if set to <c>true</c> [bad distance].</param>
         /// <param name="expectedResult">if set to <c>true</c> [expected result].</param>
-        [TestCase(true, true, false, false, true)] // Valid behavior
-        [TestCase(true, false, false, false, true)] // Valid behavior
-        [TestCase(false, true, false, false, false)] // Valid behavior
-        [TestCase(true, true, true, false, true, ExpectedException = typeof(ReceivedCallsException))] // Invalid behavior
-        [TestCase(true, true, false, true, true, ExpectedException = typeof(ReceivedCallsException))] // Invalid behavior
-        [TestCase(false, true, true, false, false, ExpectedException = typeof(ReceivedCallsException))] // Invalid behavior
+        [TestCase(true, true, false, false, true)]
+        [TestCase(true, false, false, false, true)]
+        [TestCase(false, true, false, false, false)]
+        [TestCase(true, true, true, false, true, ExpectedException = typeof(ReceivedCallsException))]
+        [TestCase(true, true, false, true, true, ExpectedException = typeof(ReceivedCallsException))]
+        [TestCase(false, true, true, false, false, ExpectedException = typeof(ReceivedCallsException))]
         [Test]
-        public void TestIfTestHelperGetsCorrectResults(
-            bool andSpecResult,
-            bool originAndDestinationResult,
-            bool badOrigin,
-            bool badDistance,
-            bool expectedResult)
+        public void TestIfTestHelperGetsCorrectResults( bool andSpecResult, bool originAndDestinationResult, bool badOrigin, bool badDistance, bool expectedResult)
         {
-            // Arrange
             IRouteSpecification originAndDestinationSpec = Substitute.For<IRouteSpecification>();
             IRouteSpecification distanceSpec = Substitute.For<IRouteSpecification>();
             IRouteSpecification andSpec = Substitute.For<IRouteSpecification>();
             IRoute route = Substitute.For<IRoute>();
 
-            // Specify distanceSpec behavior
             if (!badDistance)
             {
-                distanceSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null))
-                            .Do(c => c.Equals(route.Distance));
+                distanceSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null)).Do(c => c.Equals(route.Distance));
             }
 
-            // Specify originAndDesintationSpec behavior
             if (!badOrigin)
             {
-                originAndDestinationSpec.IsSatisfiedBy(null)
-                                        .ReturnsForAnyArgs(originAndDestinationResult);
-                originAndDestinationSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null))
-                            .Do(c =>
-                            {
-                                Assert.NotNull(route.Origin);
+                originAndDestinationSpec.IsSatisfiedBy(null).ReturnsForAnyArgs(originAndDestinationResult);
+                originAndDestinationSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null)).Do(c =>{ Assert.NotNull(route.Origin);
                                 if (originAndDestinationResult)
                                 {
                                     Assert.NotNull(route.Destination);
@@ -137,30 +125,22 @@ namespace Trains.IntegrationTest
                             });
             }
 
-            // Specify andSpec behavior
-            andSpec.IsSatisfiedBy(null)
-                   .ReturnsForAnyArgs(andSpecResult);
-            andSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null))
-                   .Do(call =>
+            andSpec.IsSatisfiedBy(null).ReturnsForAnyArgs(andSpecResult);
+            andSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null)).Do(call =>
                    {
                        if (!badOrigin)
                        {
                            originAndDestinationSpec.IsSatisfiedBy(null);
                        }
                    });
-            andSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null))
-                   .Do(call =>
+            andSpec.WhenForAnyArgs(s => s.IsSatisfiedBy(null)).Do(call =>
                    {
                        if (!badDistance && andSpecResult)
                        {
                            originAndDestinationSpec.IsSatisfiedBy(null);
                        }
                    });
-
-            // Act
             bool actualResult = GetSatisfyResult(originAndDestinationSpec, distanceSpec, andSpec, route);
-
-            // Assert
             Assert.AreEqual(expectedResult, actualResult);
         }
 
@@ -172,40 +152,35 @@ namespace Trains.IntegrationTest
         /// <param name="badOrigin">if set to <c>true</c> [bad origin].</param>
         /// <param name="badDistance">if set to <c>true</c> [bad distance].</param>
         /// <param name="expectedResult">if set to <c>true</c> [expected result].</param>
-        [TestCase(true, true, false, false, true)] // Valid behavior
-        [TestCase(true, false, false, false, true)] // Valid behavior
-        [TestCase(false, true, false, false, false)] // Valid behavior
-        [TestCase(true, true, true, false, true, ExpectedException = typeof(ReceivedCallsException))] // Invalid behavior
-        [TestCase(true, true, false, true, true, ExpectedException = typeof(ReceivedCallsException))] // Invalid behavior
-        [TestCase(false, true, true, false, false, ExpectedException = typeof(ReceivedCallsException))] // Invalid behavior
+        [TestCase(true, true, false, false, true)]
+
+        [TestCase(true, false, false, false, true)]
+
+        [TestCase(false, true, false, false, false)]
+
+        [TestCase(true, true, true, false, true, ExpectedException = typeof(ReceivedCallsException))]
+
+        [TestCase(true, true, false, true, true, ExpectedException = typeof(ReceivedCallsException))]
+
+        [TestCase(false, true, true, false, false, ExpectedException = typeof(ReceivedCallsException))]
+
         [Test]
-        public void TestIfMightTestHelperGetsCorrectResults(
-            bool andSpecResult,
-            bool originAndDestinationResult,
-            bool badOrigin,
-            bool badDistance,
-            bool expectedResult)
+        public void TestIfMightTestHelperGetsCorrectResults( bool andSpecResult, bool originAndDestinationResult, bool badOrigin, bool badDistance, bool expectedResult)
         {
-            // Arrange
             IRouteSpecification originAndDestinationSpec = Substitute.For<IRouteSpecification>();
             IRouteSpecification distanceSpec = Substitute.For<IRouteSpecification>();
             IRouteSpecification andSpec = Substitute.For<IRouteSpecification>();
             IRoute route = Substitute.For<IRoute>();
 
-            // Specify distanceSpec behavior
             if (!badDistance)
             {
-                distanceSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null))
-                            .Do(c => c.Equals(route.Distance));
+                distanceSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null)).Do(c => c.Equals(route.Distance));
             }
 
-            // Specify originAndDesintationSpec behavior
             if (!badOrigin)
             {
-                originAndDestinationSpec.MightBeSatisfiedBy(null)
-                                        .ReturnsForAnyArgs(originAndDestinationResult);
-                originAndDestinationSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null))
-                            .Do(c =>
+                originAndDestinationSpec.MightBeSatisfiedBy(null).ReturnsForAnyArgs(originAndDestinationResult);
+                originAndDestinationSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null)).Do(c =>
                             {
                                 Assert.NotNull(route.Origin);
                                 if (originAndDestinationResult)
@@ -215,19 +190,15 @@ namespace Trains.IntegrationTest
                             });
             }
 
-            // Specify andSpec behavior
-            andSpec.MightBeSatisfiedBy(null)
-                   .ReturnsForAnyArgs(andSpecResult);
-            andSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null))
-                   .Do(call =>
+            andSpec.MightBeSatisfiedBy(null).ReturnsForAnyArgs(andSpecResult);
+            andSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null)).Do(call =>
                    {
                        if (!badOrigin)
                        {
                            originAndDestinationSpec.MightBeSatisfiedBy(null);
                        }
                    });
-            andSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null))
-                   .Do(call =>
+            andSpec.WhenForAnyArgs(s => s.MightBeSatisfiedBy(null)).Do(call =>
                    {
                        if (!badDistance && andSpecResult)
                        {
@@ -235,10 +206,8 @@ namespace Trains.IntegrationTest
                        }
                    });
 
-            // Act
             bool actualResult = GetMightSatisfyResult(originAndDestinationSpec, distanceSpec, andSpec, route);
 
-            // Assert
             Assert.AreEqual(expectedResult, actualResult);
         }
 

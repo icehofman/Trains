@@ -1,10 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Trains.FunctionalTest
 {
@@ -58,16 +55,12 @@ namespace Trains.FunctionalTest
         [TestCase("test_data/default_data.txt", "Output #10: 7")]
         [TestCase("test_data/default_data.txt", " ========== ")]
         public void TestRouteCalculatorResults(string fileName, string expectedOutput)
-        {
-            // Arrange            
+        {     
             string output = string.Empty;
             string[] argument = fileName == null ? new string[] { } : new string[] { fileName };
 
-            // Act
             Trains.Program.Main(argument);
             output = this.testOutput.ToString();
-
-            // Assert
             StringAssert.Contains(expectedOutput, output);
         }
     }

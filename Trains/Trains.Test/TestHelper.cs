@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Trains.Map;
 using Trains.Plan;
 
@@ -274,8 +272,7 @@ namespace Trains.Test
         /// <returns>The city with the city name, null if not found.</returns>
         private static City GetOrCreateCity(Route route, string cityName)
         {
-            City city = route.Legs.SelectMany(leg => new ICity[] { leg.Origin, leg.Destination })
-                             .FirstOrDefault(item => item.Name.Equals(cityName)) as City;
+            City city = route.Legs.SelectMany(leg => new ICity[] { leg.Origin, leg.Destination }).FirstOrDefault(item => item.Name.Equals(cityName)) as City;
 
             if (city == null)
             {

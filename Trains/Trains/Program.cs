@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Trains.Map;
 using Trains.Plan;
 using Trains.Specify;
@@ -80,7 +78,6 @@ namespace Trains
 
                 WriteOperationsResults(RunPathSpecificationUseCases(routeFinder));
 
-                // Run the route finder for multiple results.
                 WriteOperationsResults(RunRouteCountUseCases(routeFinder));
 
                 WriteOperationsResults(RunShortestRouteUseCases(map));
@@ -103,10 +100,7 @@ namespace Trains
         public static IEnumerable<int> RunCompoundSpecificationCountRoutesUseCase(IRouteFinder routeFinder)
         {
             var anotherTripCountSpecs = new List<IRouteSpecification>();
-            anotherTripCountSpecs.Add(
-                new AndSpecification(
-                    new OriginAndDestinationSpecification("C", "C"),
-                    new DistanceSpecification(0, 29)));
+            anotherTripCountSpecs.Add( new AndSpecification( new OriginAndDestinationSpecification("C", "C"), new DistanceSpecification(0, 29)));
             return FindConformingRouteCount(routeFinder, anotherTripCountSpecs);
         }
 
@@ -135,14 +129,8 @@ namespace Trains
         public static IEnumerable<int> RunRouteCountUseCases(IRouteFinder routeFinder)
         {
             var tripCountSpecs = new List<IRouteSpecification>();
-            tripCountSpecs.Add(
-                new AndSpecification(
-                    new OriginAndDestinationSpecification("C", "C"),
-                    new StopsCountSpecification(0, 3)));
-            tripCountSpecs.Add(
-                new AndSpecification(
-                    new OriginAndDestinationSpecification("A", "C"),
-                    new StopsCountSpecification(4, 4)));
+            tripCountSpecs.Add( new AndSpecification( new OriginAndDestinationSpecification("C", "C"), new StopsCountSpecification(0, 3)));
+            tripCountSpecs.Add( new AndSpecification( new OriginAndDestinationSpecification("A", "C"), new StopsCountSpecification(4, 4)));
             return FindConformingRouteCount(routeFinder, tripCountSpecs);
         }
 
@@ -153,7 +141,6 @@ namespace Trains
         /// <returns>The operations results</returns>
         public static IEnumerable<int> RunPathSpecificationUseCases(IRouteFinder routeFinder)
         {
-            // Create the path specifications
             var pathSpecs = new List<IRouteSpecification>();
             pathSpecs.Add(new PathSpecification("A", "B", "C"));
             pathSpecs.Add(new PathSpecification("A", "D"));
@@ -161,7 +148,6 @@ namespace Trains
             pathSpecs.Add(new PathSpecification("A", "E", "B", "C", "D"));
             pathSpecs.Add(new PathSpecification("A", "E", "D"));
 
-            // Run the route finder for each path specification
             return FindFirstConformingRouteDistance(routeFinder, pathSpecs);
         }
 
