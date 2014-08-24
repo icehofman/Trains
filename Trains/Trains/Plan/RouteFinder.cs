@@ -89,9 +89,7 @@ namespace Trains.Plan
                 {
                     yield return route;
                 }
-
-                // Even if a rounte already satisfies a condition, we must keep on looking for more,
-                // unil no more routes could possibly satisfy.
+               
                 ICity currentDestination = route.Destination;
                 foreach (IRailroad nextRailroad in currentDestination.Outgoing)
                 {

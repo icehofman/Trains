@@ -51,6 +51,7 @@
     <Compile Include="Map\IRailroadMap.cs" />
     <Compile Include="Map\Railroad.cs" />
     <Compile Include="Map\RailroadMap.cs" />
+    <Compile Include="Plan\CityRow.cs" />
     <Compile Include="Plan\IRoute.cs" />
     <Compile Include="Plan\IRouteComparer.cs" />
     <Compile Include="Plan\IRouteComparison.cs" />

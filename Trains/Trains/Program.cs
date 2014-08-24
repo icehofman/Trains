@@ -78,7 +78,6 @@ namespace Trains
 
                 WriteOperationsResults(RunPathSpecificationUseCases(routeFinder));
 
-                // Run the route finder for multiple results.
                 WriteOperationsResults(RunRouteCountUseCases(routeFinder));
 
                 WriteOperationsResults(RunShortestRouteUseCases(map));
@@ -151,7 +150,6 @@ namespace Trains
         /// <returns>The operations results</returns>
         public static IEnumerable<int> RunPathSpecificationUseCases(IRouteFinder routeFinder)
         {
-            // Create the path specifications
             var pathSpecs = new List<IRouteSpecification>();
             pathSpecs.Add(new PathSpecification("A", "B", "C"));
             pathSpecs.Add(new PathSpecification("A", "D"));
@@ -159,7 +157,6 @@ namespace Trains
             pathSpecs.Add(new PathSpecification("A", "E", "B", "C", "D"));
             pathSpecs.Add(new PathSpecification("A", "E", "D"));
 
-            // Run the route finder for each path specification
             return FindFirstConformingRouteDistance(routeFinder, pathSpecs);
         }
 

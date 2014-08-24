@@ -17,9 +17,9 @@ namespace Trains.Test.Plan
         /// <param name="origin">The origin.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="expectedDistance">The expected distance.</param>
-        [TestCase("AB1", "A", "B", 1)] // Simplest possible test case    
+        [TestCase("AB1", "A", "B", 1)]    
         [TestCase("AB1 BA2", "B", "A", 2)]
-        [TestCase("AB1 BA1", "B", "B", 2)] // Simplest possible test case that has a cycle and starts at second railroad
+        [TestCase("AB1 BA1", "B", "B", 2)]
         [TestCase("AB1 BC1", "A", "C", 2)]
         [TestCase("AB1 BC1 CD1 AD1", "A", "D", 1)]
         [TestCase("AB1 BC2 CD1 AC1 BD1", "A", "D", 2)]
@@ -33,19 +33,14 @@ namespace Trains.Test.Plan
         [TestCase("AB1", "A", "C", ShortestLengthFinder.Unreachable)]
         public void TestIfItCanGetTheShortestLength(string mapGraph, string origin, string destination, int expectedDistance)
         {
-            // Arrange
-            // Arrange the map
             IRailroadMap map = Substitute.For<IRailroadMap>();
             IList<ICity> cities = TestHelper.GenerateCities(mapGraph, true).ToArray();
             map.Cities.Returns(cities);
 
-            // Arrange the target
             ShortestLengthFinder target = new ShortestLengthFinder(map);
 
-            // Act
             int actualLengthFound = target.GetShortestLength(from: origin, to: destination);
 
-            // Assert
             Assert.That(actualLengthFound, Is.EqualTo(expectedDistance));
         }
 
@@ -63,17 +58,14 @@ namespace Trains.Test.Plan
         [TestCase("AB1 AC2 BC3", 1, ShortestLengthFinder.Unreachable, ShortestLengthFinder.Unreachable, 3)]
         public void TestIfItCanInitializeCorrectly(string mapGraph, int originIndex, params int[] destinationsLength)
         {
-            // Arrange
             IRailroadMap map = Substitute.For<IRailroadMap>();
             IList<ICity> cities = TestHelper.GenerateCities(mapGraph, true).ToArray();
             map.Cities.Returns(cities);
 
-            // Act
             var target = new Trains.Plan.ShortestLengthFinder(map);
-            var rows = target.GetPrivateField<IList<ShortestLengthFinder.CityRow>>("cityData");
+            var rows = target.GetPrivateField<IList<CityRow>>("cityData");
 
-            // Assert
-            ShortestLengthFinder.CityRow row = rows.ElementAt(originIndex);
+            CityRow row = rows.ElementAt(originIndex);
             for (int i = 0; i < destinationsLength.Length; i++)
             {
                 Assert.That(row[i], Is.EqualTo(destinationsLength[i]), "Unequality at: {0}", i);
@@ -90,11 +82,9 @@ namespace Trains.Test.Plan
         [TestCase(new[] { "A", "B", "C" }, "B", 1)]
         public void TestIfCityRowCanStoreAndRetrieveData(string[] neighbors, object key, int expectedData)
         {
-            // Arrange
-            var target = new ShortestLengthFinder.CityRow("A", neighbors);
+            var target = new CityRow("A", neighbors);
             int actualData = int.MinValue;
 
-            // Act
             string getKey = key as string;
             if (getKey != null)
             {
@@ -108,7 +98,6 @@ namespace Trains.Test.Plan
                 actualData = target[indexKey];
             }
 
-            // Assert
             Assert.That(actualData, Is.EqualTo(expectedData));
         }
     }
