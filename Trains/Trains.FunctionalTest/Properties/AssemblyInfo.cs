@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Trains")]
-[assembly: AssemblyDescription("Develop by Israel Hofman")]
+[assembly: AssemblyTitle("Trains.FunctionalTest")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ICEMicroSystems")]
-[assembly: AssemblyProduct("Trains")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Trains.FunctionalTest")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("ICeHofman")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a27df0e0-e7e3-46cd-8e58-0b0987f1c533")]
+[assembly: Guid("8cc9f1af-8f69-453b-8d0d-7c622a6f3b74")]
 
 // Version information for an assembly consists of the following four values:
 //
