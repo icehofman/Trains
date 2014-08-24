@@ -31,14 +31,11 @@ namespace Trains.Test.Map
         [Test]
         public void TestIfItDoesNotBreakWithAValidFile()
         {
-            // Arrange            
             RailroadMap target;
 
-            // Act
             target = new RailroadMap();
             target.Init(File.OpenRead(SINGLE_RAILROAD_DATA));
 
-            // Assert
             Assert.Pass();
         }
 
@@ -48,15 +45,12 @@ namespace Trains.Test.Map
         [Test]
         public void TestIfItCanBuildASingleRailroad()
         {
-            // Arrange
             RailroadMap target;
             string graphString = "AB1";
 
-            // Act
             target = new RailroadMap();
             target.BuildMap(graphString);
 
-            // Assert
             Assert.AreEqual(1, target.Railroads.Count());
             Assert.AreEqual(2, target.Cities.Count());
             IRailroad railroad = target.Railroads.ElementAt(0);
@@ -79,15 +73,12 @@ namespace Trains.Test.Map
         [TestCaseSource("buildRailroadsTestData")]
         public void TestIfItCanBuildRailroads(string graphPath, string[] orderedCityNames, int[] railroadLengths)
         {
-            // Arrange
             var map = new RailroadMap();
             int expectedCityCount = orderedCityNames.Length;
             int expectedRailroadCount = railroadLengths.Length;
 
-            // Act
             map.BuildMap(graphPath);
 
-            // Assert
             Assert.AreEqual(expectedCityCount, map.Cities.Count());
             Assert.AreEqual(expectedRailroadCount, map.Railroads.Count());
             CollectionAssert.AreEquivalent(orderedCityNames, map.Cities.Select(city => city.Name));
@@ -100,15 +91,12 @@ namespace Trains.Test.Map
         [Test]
         public void TestIfItCanReadFileContent()
         {
-            // Arrange
             var method = TestHelper.GetPrivateStaticMethod<RailroadMap>("ReadContent");
             string content = string.Empty;
             string expected = "AB1";
 
-            // Act
             content = (string)method.Invoke(File.OpenRead(SINGLE_RAILROAD_DATA));
 
-            // Assert
             Assert.AreEqual(expected, content);
         }
 
@@ -118,15 +106,12 @@ namespace Trains.Test.Map
         [Test]
         public void TestIfItCanCreateCity()
         {
-            // Arrange
             RailroadMap target = new RailroadMap();
             var method = target.GetPrivateMethod("GetOrCreateCity");
             string cityName = "Z";
 
-            // Act            
             method.Invoke(cityName);
 
-            // Assert
             Assert.IsTrue(target.Cities.Any(city => city.Name == cityName));
         }
     }

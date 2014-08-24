@@ -16,16 +16,27 @@ namespace Trains.Test
         /// <param name="targetMethod">The target method.</param>
         /// <param name="specResults">The spec results.</param>
         [TestCase("FindFirstConformingRouteDistance", new int[] { -1 })]
+
         [TestCase("FindFirstConformingRouteDistance", new int[] { 1 })]
+
         [TestCase("FindFirstConformingRouteDistance", new int[] { -1, -1 })]
+
         [TestCase("FindFirstConformingRouteDistance", new int[] { 1, -1 })]
+
         [TestCase("FindFirstConformingRouteDistance", new int[] { -1, 1 })]
+
         [TestCase("FindFirstConformingRouteDistance", new int[] { 1, 1 })]
+
         [TestCase("FindConformingRouteCount", new int[] { 2 })]
+
         [TestCase("FindConformingRouteCount", new int[] { 1 })]
+
         [TestCase("FindConformingRouteCount", new int[] { 0 })]
+
         [TestCase("FindConformingRouteCount", new int[] { 1, 1 })]
+
         [TestCase("FindConformingRouteCount", new int[] { 0, 1 })]
+
         [TestCase("FindConformingRouteCount", new int[] { 1, 0 })]
 
         /// <summary>
@@ -36,16 +47,13 @@ namespace Trains.Test
         [Test]
         public void TestIfExecutesFirstConformingCorrectly(string targetMethod, int[] specResults)
         {
-            // Arrange
             MethodCall method = TestHelper.GetPublicStaticMethod<Trains.Program>(targetMethod);
             IList<IRouteSpecification> specs = new List<IRouteSpecification>();
             IRouteFinder finder = Substitute.For<IRouteFinder>();
             FillTestData(specResults, specs, finder);
 
-            // Act
             var results = (IEnumerable<int>)method(finder, specs);
 
-            // Assert
             CollectionAssert.AreEquivalent(specResults, results);
         }
 

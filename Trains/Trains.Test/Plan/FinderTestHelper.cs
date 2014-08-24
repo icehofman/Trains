@@ -39,8 +39,7 @@ namespace Trains.Test.Plan
                 return false;
             }
 
-            if (routeSpec.Legs != IGNORE_LEGS &&
-                routeSpec.Legs.Count() != IGNORE_LEGS_COUNT && route.Legs.Count() > routeSpec.Legs.Count())
+            if (routeSpec.Legs != IGNORE_LEGS && routeSpec.Legs.Count() != IGNORE_LEGS_COUNT && route.Legs.Count() > routeSpec.Legs.Count())
             {
                 return false;
             }
@@ -61,14 +60,12 @@ namespace Trains.Test.Plan
         /// <returns>true if it satisfies the specification, false otherwise.</returns>
         public static bool SatisfiesSpecification(IRoute routeSpec, IRoute route)
         {
-            if (!SatisfiesSpecification(routeSpec.Destination, route.Destination)
-              || !SatisfiesSpecification(routeSpec.Origin, route.Origin))
+            if (!SatisfiesSpecification(routeSpec.Destination, route.Destination) || !SatisfiesSpecification(routeSpec.Origin, route.Origin))
             {
                 return false;
             }
 
-            if (routeSpec.Legs != IGNORE_LEGS &&
-                routeSpec.Legs.Count() != IGNORE_LEGS_COUNT)
+            if (routeSpec.Legs != IGNORE_LEGS && routeSpec.Legs.Count() != IGNORE_LEGS_COUNT)
             {
                 if (routeSpec.Legs.Count() != route.Legs.Count())
                 {
@@ -98,8 +95,7 @@ namespace Trains.Test.Plan
         /// <returns>true if it satisfies the specification, false otherwise.</returns>
         private static bool SatisfiesSpecification(IRailroad specRailroad, IRailroad routeRailroad)
         {
-            return SatisfiesSpecification(specRailroad.Origin, routeRailroad.Origin) &&
-                   SatisfiesSpecification(specRailroad.Destination, routeRailroad.Destination);
+            return SatisfiesSpecification(specRailroad.Origin, routeRailroad.Origin) && SatisfiesSpecification(specRailroad.Destination, routeRailroad.Destination);
         }
 
         /// <summary>
