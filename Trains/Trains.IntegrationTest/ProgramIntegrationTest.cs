@@ -39,15 +39,12 @@ namespace Trains.IntegrationTest
         [Test]
         public void TestIfUseCaseNumberTenRunsCorrectly(string railroadGraph, int expectedCount)
         {
-            // Arrange
             RailroadMap map = new RailroadMap();
             map.BuildMap(railroadGraph);
             IRouteFinder routeFinder = new RouteFinder(map);
 
-            // Act
             IEnumerable<int> counts = Trains.Program.RunCompoundSpecificationCountRoutesUseCase(routeFinder);
 
-            // Assert
             Assert.AreEqual(expectedCount, counts.ElementAt(0));
         }
 
@@ -64,15 +61,12 @@ namespace Trains.IntegrationTest
         [Test]
         public void TestIfUseCaseOneTroughFiveRunCorrectly(string railroadGraph, params int[] expectedResults)
         {
-            // Arrange
             RailroadMap map = new RailroadMap();
             map.BuildMap(railroadGraph);
             IRouteFinder routeFinder = new RouteFinder(map);
 
-            // Act
             IEnumerable<int> actualResults = Trains.Program.RunPathSpecificationUseCases(routeFinder);
 
-            // Assert
             CollectionAssert.AreEquivalent(expectedResults, actualResults);
         }
 
@@ -90,15 +84,12 @@ namespace Trains.IntegrationTest
         [Test]
         public void TestIfUseCasesSixAndSevenRunCorrectly(string railroadGraph, params int[] expectedResults)
         {
-            // Arrange
             RailroadMap map = new RailroadMap();
             map.BuildMap(railroadGraph);
             IRouteFinder routeFinder = new RouteFinder(map);
 
-            // Act
             IEnumerable<int> actualResults = Trains.Program.RunRouteCountUseCases(routeFinder);
 
-            // Assert
             CollectionAssert.AreEquivalent(expectedResults, actualResults);
         }
 
@@ -119,14 +110,11 @@ namespace Trains.IntegrationTest
         [Test]
         public void TestIfUseCasesEightAndNineRunCorrectly(string railroadGraph, params int[] expectedResults)
         {
-            // Arrange
             RailroadMap map = new RailroadMap();
             map.BuildMap(railroadGraph);
 
-            // Act
             IEnumerable<int> actualResults = Trains.Program.RunShortestRouteUseCases(map);
 
-            // Assert
             CollectionAssert.AreEquivalent(expectedResults, actualResults);
         }
     }
