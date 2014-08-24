@@ -8,6 +8,7 @@ Requirements:
 
   - Microsoft Visual Studio 2013
   - .NET Framework 4.5.1
+  - NUnit Test Adapter for Visual Studio
   - Nuget:
         NSubstitute
         NSubstituteAutoMocker
@@ -39,7 +40,7 @@ Output #10: 7
  ==========
 ```
 
-Test Result
+Test Result:
 --------------
 ```command
 #1 Graph:AB1 BC1 SpecifiedRoute:AB1 BC1 Valid Route:True
